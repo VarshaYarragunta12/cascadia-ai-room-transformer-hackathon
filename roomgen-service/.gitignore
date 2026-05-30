@@ -1,0 +1,13 @@
+target/
+*.class
+*.jar
+*.war
+
+.env
+generated-room.png
+
+.idea/
+*.iml
+.vscode/
+
+.DS_Store

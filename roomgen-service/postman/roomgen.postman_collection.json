@@ -1,0 +1,47 @@
+{
+  "info": {
+    "_postman_id": "b4f1a2c3-d5e6-4789-a012-bc3456789def",
+    "name": "RoomGen Service",
+    "description": "Bedrock room generation API — POST a room image URL + products, receive a styled PNG.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Generate Room Image",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userPreferences\": {\n    \"items\": \"mirror, floor lamp, side table\",\n    \"style\": [\"minimalist\", \"Scandinavian\"],\n    \"colors\": [\"beige\", \"warm oak\"],\n    \"vibe\": \"cozy minimalist\",\n    \"budget\": 350\n  },\n  \"roomData\": {\n    \"roomImageUrl\": \"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1024\",\n    \"roomType\": \"bedroom\",\n    \"existingFurniture\": [\"bed\", \"desk\", \"chair\"],\n    \"issues\": [\"empty corner\", \"poor lighting\"],\n    \"colorPalette\": [\"white\", \"beige\", \"brown\"],\n    \"styleInference\": \"minimalist\",\n    \"vibe\": \"cozy minimalist\",\n    \"userRequirement\": \"I want the room to look spacious with a mirror and plants\"\n  },\n  \"scrapedProducts\": [\n    {\n      \"name\": \"Arco Floor Lamp\",\n      \"category\": \"lighting\",\n      \"brand\": \"FLOS\",\n      \"typeName\": \"floor lamp\"\n    },\n    {\n      \"name\": \"Minimalist Round Mirror\",\n      \"category\": \"decor\",\n      \"brand\": \"IKEA\",\n      \"typeName\": \"wall mirror\"\n    },\n    {\n      \"name\": \"Oak Side Table\",\n      \"category\": \"furniture\",\n      \"brand\": \"West Elm\",\n      \"typeName\": \"side table\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/generate-room",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "v1", "generate-room"]
+        },
+        "description": "Send room data and scraped products. Response is a binary image/png — save the response body to a .png file in Postman (Send and Download)."
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}
