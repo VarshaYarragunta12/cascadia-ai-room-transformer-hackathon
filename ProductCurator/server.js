@@ -5,6 +5,7 @@ if (!globalThis.Request) globalThis.Request = _nf.Request;
 if (!globalThis.Response) globalThis.Response = _nf.Response;
 require('dotenv').config();
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const mockRoom = require('./mockRoom.json');
 const { calculateBudget } = require('./services/budgetService');
 const { curateProducts } = require('./services/claudeService');
@@ -17,6 +18,16 @@ const DEFAULT_MAX_ITEMS = Number(process.env.DEFAULT_MAX_ITEMS || 20);
 const DEFAULT_MAX_PAGES = Number(process.env.DEFAULT_MAX_PAGES || 2);
 
 app.use(express.json());
+
+// 3 runs per IP per hour — protects API credits from abuse
+const limiter = rateLimit({
+    windowMs: 60 * 60 * 1000,
+    max: 3,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { status: 'error', message: 'Too many requests — please try again in an hour.' },
+});
+app.use('/curate-products', limiter);
 
 // Allow the frontend (Vite dev server on :5173) to call this API from the browser.
 app.use((req, res, next) => {
