@@ -121,7 +121,9 @@ export default function Results() {
             return (
               <div className="s5-product" key={p.id}>
                 <div className="s5-product-thumb" style={{ background: p.color }}>
-                  {p.emoji}
+                  {p.image
+                    ? <img src={p.image} alt={v.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit' }} onError={e => { e.target.style.display = 'none' }} />
+                    : p.emoji}
                 </div>
                 <div className="s5-product-body">
                   <div className="s5-product-name">{v.name}</div>

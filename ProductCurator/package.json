@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.100.1",
+    "@aws-sdk/client-bedrock-runtime": "^3.1057.0",
     "apify-client": "^2.23.3",
     "axios": "^1.16.1",
     "dotenv": "^17.4.2",

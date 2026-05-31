@@ -1,3 +1,8 @@
+const _nf = require('node-fetch');
+if (!globalThis.fetch)   globalThis.fetch   = _nf.default;
+if (!globalThis.Headers) globalThis.Headers = _nf.Headers;
+if (!globalThis.Request) globalThis.Request = _nf.Request;
+if (!globalThis.Response) globalThis.Response = _nf.Response;
 require('dotenv').config();
 const express = require('express');
 const mockRoom = require('./mockRoom.json');
