@@ -8,7 +8,7 @@ const http = require('http');
 const MODEL_ID = process.env.BEDROCK_MODEL_ID || 'us.stability.stable-image-inpaint-v1:0';
 const SAMPLE_ROOM_IMAGE =
   process.env.SAMPLE_ROOM_IMAGE ||
-  'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1024';
+  'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1024';
 
 const bedrockClient = new BedrockRuntimeClient({ region: process.env.AWS_REGION || 'us-east-1' });
 
