@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 4000;
 const DEFAULT_MAX_ITEMS = Number(process.env.DEFAULT_MAX_ITEMS || 20);
 const DEFAULT_MAX_PAGES = Number(process.env.DEFAULT_MAX_PAGES || 2);
 
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 
 // 3 runs per IP per hour — protects API credits from abuse
 const limiter = rateLimit({
