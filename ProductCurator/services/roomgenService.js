@@ -150,10 +150,14 @@ function buildPrompt(userPreferences = {}, roomData = {}, products = []) {
   return parts.join(', ').slice(0, 1024);
 }
 
-async function generateRoomImage(userPreferences = {}, roomData = {}, picks = []) {
-  const imageUrl = roomData.roomImageUrl || SAMPLE_ROOM_IMAGE;
-
-  const imageBytes = await downloadImage(imageUrl);
+async function generateRoomImage(userPreferences = {}, roomData = {}, picks = [], roomImageBase64 = null) {
+  let imageBytes;
+  if (roomImageBase64) {
+    imageBytes = Buffer.from(roomImageBase64, 'base64');
+  } else {
+    const imageUrl = roomData.roomImageUrl || SAMPLE_ROOM_IMAGE;
+    imageBytes = await downloadImage(imageUrl);
+  }
   const { width, height } = getImageDimensions(imageBytes);
   const maskBytes = generateGradientMaskPng(width, height);
   const prompt = buildPrompt(userPreferences, roomData, picks);

@@ -79,7 +79,8 @@ app.post('/curate-products', async (req, res) => {
         // server-to-server). If it fails, still return the curation.
         let generatedImage = null;
         try {
-            generatedImage = await generateRoomImage(userPreferences, roomProfile, picks);
+            const roomImageBase64 = req.body.roomImageBase64 || null;
+            generatedImage = await generateRoomImage(userPreferences, roomProfile, picks, roomImageBase64);
         } catch (err) {
             console.error('Room image generation failed:', err.message);
         }

@@ -43,9 +43,25 @@ export default function Loading() {
     ;(async () => {
       try {
         const prefs = buildPreferences(flow)
-        // P3 now orchestrates scrape + curate + generate, returning the "after"
-        // image inline (data URL). One call, one origin — no browser->P2 hop.
-        const curated = await curate(prefs)
+
+        // Convert the user's uploaded photo to base64 so the server can
+        // pass it directly to Bedrock as the inpainting base image.
+        let roomImageBase64 = null
+        if (flow.photos && flow.photos[0]) {
+          try {
+            const res = await fetch(flow.photos[0].url)
+            const blob = await res.blob()
+            roomImageBase64 = await new Promise((resolve) => {
+              const reader = new FileReader()
+              reader.onloadend = () => resolve(reader.result.split(',')[1])
+              reader.readAsDataURL(blob)
+            })
+          } catch (e) {
+            console.warn('Could not encode photo:', e)
+          }
+        }
+
+        const curated = await curate(prefs, roomImageBase64)
         const result = curated.result || {}
         const plan = mapPlan(result)
 

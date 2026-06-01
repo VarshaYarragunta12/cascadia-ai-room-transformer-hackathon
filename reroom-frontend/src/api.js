@@ -26,11 +26,13 @@ export function buildPreferences(flow) {
 }
 
 // P3 — scrape + curate. Returns { status, scrapedProducts, result, ... }.
-export async function curate(prefs) {
+export async function curate(prefs, roomImageBase64 = null) {
+  const body = { userPreferences: prefs }
+  if (roomImageBase64) body.roomImageBase64 = roomImageBase64
   const res = await fetch(`${CURATOR_URL}/curate-products`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ userPreferences: prefs }),
+    body: JSON.stringify(body),
   })
   const data = await res.json().catch(() => ({}))
   if (!res.ok || (data.status && data.status !== 'success')) {
