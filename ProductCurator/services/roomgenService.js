@@ -158,7 +158,7 @@ async function generateRoomImage(userPreferences = {}, roomData = {}, picks = []
   const maskBytes = generateGradientMaskPng(width, height);
   const prompt = buildPrompt(userPreferences, roomData, picks);
 
-  const negativePrompt = 'bed, bedroom, mattress, pillow, bedding, headboard, nightstand, sleeping, blurry, low quality, deformed';
+  const negativePrompt = 'bed, bedroom, mattress, pillow, bedding, headboard, nightstand, bedside table, sleeping area, duvet, blanket on bed, bedroom furniture, master bedroom, guest bedroom';
 
   const payload = JSON.stringify({
     prompt,
